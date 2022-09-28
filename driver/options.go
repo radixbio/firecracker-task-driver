@@ -23,8 +23,8 @@ import (
 	"strconv"
 	"strings"
 
-	firecracker "github.com/firecracker-microvm/firecracker-go-sdk"
-	models "github.com/firecracker-microvm/firecracker-go-sdk/client/models"
+	firecracker "github.com/radixbio/firecracker-go-sdk"
+	models "github.com/radixbio/firecracker-go-sdk/client/models"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
@@ -77,7 +77,6 @@ type options struct {
 	FcMetadata         string   `long:"metadata" description:"Firecracker Metadata for MMDS (json)"`
 	FcFifoLogFile      string   `long:"firecracker-log" short:"l" description:"pipes the fifo contents to the specified file"`
 	FcSocketPath       string   `long:"socket-path" short:"s" description:"path to use for firecracker socket, defaults to a unique file in in the first existing directory from {$HOME, $TMPDIR, or /tmp}"`
-	Debug              bool     `long:"debug" short:"d" description:"Enable debug output"`
 	Version            bool     `long:"version" description:"Outputs the version of the application"`
 
 	closers       []func() error
@@ -144,7 +143,6 @@ func (opts *options) getFirecrackerConfig(AllocId string) (firecracker.Config, e
 			HtEnabled:   firecracker.Bool(htEnabled),
 			MemSizeMib:  firecracker.Int64(opts.FcMemSz),
 		},
-		Debug: opts.Debug,
 	}, nil
 }
 

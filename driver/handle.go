@@ -22,7 +22,7 @@ import (
 	"syscall"
 	"time"
 
-	firecracker "github.com/firecracker-microvm/firecracker-go-sdk"
+	firecracker "github.com/radixbio/firecracker-go-sdk"
 	hclog "github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/nomad/client/stats"
 	"github.com/hashicorp/nomad/plugins/drivers"
@@ -87,7 +87,7 @@ func (h *taskHandle) run() {
 	/* TODO:
 	 *  To really check the status by querying the firecracker's API, you need to call DescribeInstance
 	 *  which is not implemented in firecracker-go-sdk
-	 *  https://github.com/firecracker-microvm/firecracker-go-sdk/issues/115
+	 *  https://github.com/radixbio/firecracker-go-sdk/issues/115
 	 */
 	h.stateLock.Unlock()
 

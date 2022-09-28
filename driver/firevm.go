@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"github.com/containerd/console"
-	firecracker "github.com/firecracker-microvm/firecracker-go-sdk"
+	firecracker "github.com/radixbio/firecracker-go-sdk"
 	hclog "github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/nomad/plugins/drivers"
 	log "github.com/sirupsen/logrus"
@@ -73,7 +73,6 @@ func taskConfig2FirecrackerOpts(taskConfig TaskConfig, cfg *drivers.TaskConfig) 
 
 	if len(taskConfig.Log) > 0 {
 		opts.FcFifoLogFile = taskConfig.Log
-		opts.Debug = true
 		opts.FcLogLevel = "Debug"
 	}
 
@@ -118,11 +117,6 @@ func (d *Driver) initializeContainer(ctx context.Context, cfg *drivers.TaskConfi
 
 	d.logger.Info("Starting firecracker", "driver_initialize_container", hclog.Fmt("%v+", opts))
 	logger := log.New()
-
-	if opts.Debug {
-		log.SetLevel(log.DebugLevel)
-		logger.SetLevel(log.DebugLevel)
-	}
 
 	vmmCtx, vmmCancel := context.WithCancel(ctx)
 	defer vmmCancel()
